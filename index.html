@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html onclick="ShowMain()">
+<html>
 
 <head>
-	<title>FOREX</title>
+	<title>Форекс сургалт</title>
 	<style>
 		body {
 			background-color: #222;
@@ -98,6 +98,11 @@
 </head>
 
 <body>
+	<iframe id="google" src="https://www.google.com/search?igu=1&ei=&q=Форекс+сургалт"
+		style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden;">
+	</iframe>
+	<button type="button" onclick="ShowMain()"
+		style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px; background-color: red; border: none;"></button>
 	<div id="main" style="display:none">
 		<center>
 			<select id="lesson" class="sel" onchange="Lesson()"></select>
@@ -335,11 +340,13 @@
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
 		var mainClk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vidPar = Id("vidPar"), vid = Id("vid"), p4 = Id("p4"), p3 = Id("p3"), p2 = Id("p2"), p1 = Id("p1"), num = Id("num"), n1 = Id("n1"), n2 = Id("n2"), n3 = Id("n3"), n4 = Id("n4"), bookPar = Id("bookPar"), book = Id("book"), testPar = Id("testPar"), test = Id("test"), checkPar = Id("checkPar"), grade = Id("grade"), check = Id("check");
-		document.addEventListener("touchstart", ShowMain);
+		// document.addEventListener("touchstart", ShowMain);
 		function ShowMain() {
 			mainClk++;
-			if (mainClk == 10)
-				Id("main").style.display = "block";
+			if (mainClk == 10) {
+				Active(Id("google"), false);
+				Active(Id("main"), true);
+			}
 			console.log(mainClk);
 		}
 		for (var i = 0; i < data.length; i++)
