@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html onclick="ShowMain()">
 
 <head>
-	<title>Форекс сургалт</title>
+	<title>ФОРЕКС</title>
 	<style>
 		body {
 			background-color: #222;
@@ -83,7 +83,7 @@
 
 		#testPar {
 			margin: auto;
-			width: 800px;
+			width: 720px;
 		}
 
 		.txt {
@@ -98,24 +98,20 @@
 </head>
 
 <body>
-	<iframe id="google" src="https://www.google.com/search?igu=1&ei=&q=Форекс+сургалт"
-		style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden;">
-	</iframe>
-	<button type="button" onclick="ShowMain()"
-		style="position: fixed; bottom: 0; right: 0; width: 10%; height: 10%; background-color: transparent; border: none;"></button>
 	<div id="main" style="display:none">
 		<center>
 			<select id="lesson" class="sel" onchange="Lesson()"></select>
 			<select id="change" class="sel" onchange="Change()">
 				<option value=0>Бичлэг</option>
 				<option value=1>Шалгалт</option>
-				<option value=2>Ном</option>
+				<option value=2>Ном (Day)</option>
+				<option value=3>Ном</option>
 			</select>
 			<br><br>
 			<div id="vidPar">
 				<select id="topic" class="sel" onchange="Topic(0, true)"></select><br><br>
-				<iframe id="vid" width="960" height="540" allowfullscreen></iframe>
-				<div>
+				<iframe id="vid" width="720" height="405" allowfullscreen></iframe>
+				<div style="display:none">
 					<button id="p4" class="btn" onclick="Lesson(-1000)">❰❰</button>
 					<button id="p3" class="btn" onclick="Lesson(-1)">❰</button>
 					<button id="p2" class="btn" onclick="Topic(-1000)">❮❮</button>
@@ -127,7 +123,7 @@
 					<button id="n4" class="btn" onclick="Lesson(1000)">❱❱</button>
 				</div>
 			</div>
-			<div id="bookPar"><iframe id="book" src="" width="960" height="640"></iframe></div>
+			<div id="bookPar"><iframe id="book" src="" width="720" height="920"></iframe></div>
 		</center>
 		<div id="testPar">
 			<div id="checkPar">
@@ -141,7 +137,7 @@
 	</div>
 
 	<script>
-		var books = ["1tC7IYdqXFgWxoAngXDveSTBR9PwkqsZO", "1NUX9xB8lp4ak_n-McyUPVbWDsbHaGEgX", "1emJ0eNLTG46_a8tWSvhmqgoZtZo6Ny9W", "1YGnJHQz4sk8m9bBO17DgP37Vi6zB7JeY", "1J0ohh7ghkGTQ06nWWVmktFhHYxl6zSd6", "1ih-8s56uOaH1jIby4Hb1ieWjEdJ_jnlH", "1F0dzC7-eurz5KiDL8JH0VP6tgCOWCM-p", "1yg6s2QvH_hHSwkPLwm1Dd6cQzFEnL7W7", "19HFfgVmKXp5Y-TVsawRNZJhPdaBvWAVV", "1K3IpP9AfySK4fT_pp70KDrsLZXZ_bNqH", "1s9UTylGhc8jWD5ic-VqWgfftmOdv_WxT", "1LS06_jEUv-Mn0ySzxMrU5UOxlPpOo7pj", "1vhGfYjZkNJWy3CFy4ZwUBNf1Y9n2GqBZ", "1tHVTbJqSyIfVoypUk2hFrHPE-v8RPIy9"];
+		var books = ["1tC7IYdqXFgWxoAngXDveSTBR9PwkqsZO", "1NUX9xB8lp4ak_n-McyUPVbWDsbHaGEgX", "1emJ0eNLTG46_a8tWSvhmqgoZtZo6Ny9W", "1YGnJHQz4sk8m9bBO17DgP37Vi6zB7JeY", "1J0ohh7ghkGTQ06nWWVmktFhHYxl6zSd6", "1ih-8s56uOaH1jIby4Hb1ieWjEdJ_jnlH", "1F0dzC7-eurz5KiDL8JH0VP6tgCOWCM-p", "1yg6s2QvH_hHSwkPLwm1Dd6cQzFEnL7W7", "19HFfgVmKXp5Y-TVsawRNZJhPdaBvWAVV", "1K3IpP9AfySK4fT_pp70KDrsLZXZ_bNqH", "1s9UTylGhc8jWD5ic-VqWgfftmOdv_WxT", "1LS06_jEUv-Mn0ySzxMrU5UOxlPpOo7pj", "1vhGfYjZkNJWy3CFy4ZwUBNf1Y9n2GqBZ", "1tHVTbJqSyIfVoypUk2hFrHPE-v8RPIy9", "1fOCqEh500NS5GOO61JWmjPMXGKlNvc7_"];
 		var urls = [
 			["12uMuIy_Pk8kTLymkmFwPVE9zDWe9Pfko", "1k8tpMtmlGB2oW7ZQDWBYby6XTQBssR_n", "1MXG5OflhtF7jT-PA4gCBe8UqBnZYuEDr", "1SKoB8bT_KYfod0RsDi3dflnMpnBvfkfA", "1tuwgoAVqg4Luhjymva52DwyZb_2tI28M", "1dYlHT9Xrlirp68mfLVTF1PYo_lJ4zjcD", "1CLGy4uBGqX5P802TxNYYXSQiXIaCJkyW", "1e87_ZZPMq9ciAHHDbEHGyaClfBr_GzWq", "1MK_ICtFArCAGKJ8wQ-fBFV7RvVO5syVN", "1DbWuuVJXo1JJEwWF8KAh-P_Z2unCkdFu", "1c0ExqNI0PUrFERYJHnrWGgpFkYx7qdI2", "1SN8j6uSqyhtDlI1WNkxybD0QBHg02uUi"],
 			["1hx-HvKWRZ0byrP_npxg0uOBaFsGMCU0T", "1D-HCn-KiaDHxsJFTdzCebg_3-n2g8rhq", "1ttF4tzvRB0vazOJqeC-Ea5scaD73X2j-", "1zQwuXD2Z1xI8hZ2KF4DK0COiwU--wGsj", "1h2xz_EnA2CtkHqF7v_2_JauASMaRz0WK", "1L6gLTb8122xG2h3JfkH72_Df5USxsW66"],
@@ -340,14 +336,10 @@
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
 		var mainClk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vidPar = Id("vidPar"), vid = Id("vid"), p4 = Id("p4"), p3 = Id("p3"), p2 = Id("p2"), p1 = Id("p1"), num = Id("num"), n1 = Id("n1"), n2 = Id("n2"), n3 = Id("n3"), n4 = Id("n4"), bookPar = Id("bookPar"), book = Id("book"), testPar = Id("testPar"), test = Id("test"), checkPar = Id("checkPar"), grade = Id("grade"), check = Id("check");
-		// document.addEventListener("touchstart", ShowMain);
 		function ShowMain() {
 			mainClk++;
-			if (mainClk == 5) {
-				Active(Id("google"), false);
+			if (mainClk == 10)
 				Active(Id("main"), true);
-			}
-			console.log(mainClk);
 		}
 		for (var i = 0; i < data.length; i++)
 			lesson.innerHTML += "<option value=" + i + ">" + data[i][0] + "</option>";
@@ -359,7 +351,7 @@
 		function Change() {
 			Active(vidPar, change.value == 0);
 			Active(testPar, change.value == 1);
-			Active(bookPar, change.value == 2);
+			Active(bookPar, change.value >= 2);
 			Lesson();
 		}
 		function Lesson(d = 0) {
@@ -375,9 +367,9 @@
 					Test();
 				} else Active(checkPar, false);
 			} else {
-				if (I(lesson) < 14) {
+				if (change.value == 2 ? I(lesson) < 14 : true) {
 					Active(book, true);
-					book.src = "https://drive.google.com/file/d/" + books[I(lesson) + 1] + "/preview";
+					book.src = "https://drive.google.com/file/d/" + books[change.value == 2 ? I(lesson) : 14] + "/preview";
 				} else Active(book, false);
 			}
 			Topic();
