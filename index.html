@@ -4,6 +4,10 @@
 <head>
 	<title>ФОРЕКС</title>
 	<style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
 		body {
 			background-color: #222;
 		}
@@ -45,34 +49,6 @@
 			transform: translateY(2px);
 		}
 
-		.btn:disabled {
-			background-color: darkgray;
-			box-shadow: 0 5px gray;
-		}
-
-		.inp {
-			width: 30px;
-			height: 20px;
-			text-align: center;
-			color: black;
-			font-size: 15px;
-			background-color: white;
-			border-color: lightgray;
-			border-width: 3px;
-			border-radius: 5px;
-			transform: translateY(2px);
-		}
-
-		.inp::-webkit-outer-spin-button,
-		.inp::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
-
-		.inp[type=number] {
-			-moz-appearance: textfield;
-		}
-
 		#topic {
 			width: 720px;
 		}
@@ -106,22 +82,10 @@
 				<option value=1>Шалгалт</option>
 				<option value=2>Ном (Day)</option>
 				<option value=3>Ном</option>
-			</select>
-			<br><br>
+			</select><br><br>
 			<div id="vidPar">
-				<select id="topic" class="sel" onchange="Topic(0, true)"></select><br><br>
+				<select id="topic" class="sel" onchange="Topic()"></select><br><br>
 				<iframe id="vid" width="720" height="405" allowfullscreen></iframe>
-				<div style="display:none">
-					<button id="p4" class="btn" onclick="Lesson(-1000)">❰❰</button>
-					<button id="p3" class="btn" onclick="Lesson(-1)">❰</button>
-					<button id="p2" class="btn" onclick="Topic(-1000)">❮❮</button>
-					<button id="p1" class="btn" onclick="Topic(-1)">❮</button>
-					<input id="num" class="inp" type="number" value="1" min="1" max="10000" onchange="Topic()">
-					<button id="n1" class="btn" onclick="Topic(1)">❯</button>
-					<button id="n2" class="btn" onclick="Topic(1000)">❯❯</button>
-					<button id="n3" class="btn" onclick="Lesson(1)">❱</button>
-					<button id="n4" class="btn" onclick="Lesson(1000)">❱❱</button>
-				</div>
 			</div>
 			<div id="bookPar"><iframe id="book" src="" width="720" height="920"></iframe></div>
 		</center>
@@ -135,7 +99,6 @@
 			</div>
 		</div>
 	</div>
-
 	<script>
 		var books = ["1tC7IYdqXFgWxoAngXDveSTBR9PwkqsZO", "1NUX9xB8lp4ak_n-McyUPVbWDsbHaGEgX", "1emJ0eNLTG46_a8tWSvhmqgoZtZo6Ny9W", "1YGnJHQz4sk8m9bBO17DgP37Vi6zB7JeY", "1J0ohh7ghkGTQ06nWWVmktFhHYxl6zSd6", "1ih-8s56uOaH1jIby4Hb1ieWjEdJ_jnlH", "1F0dzC7-eurz5KiDL8JH0VP6tgCOWCM-p", "1yg6s2QvH_hHSwkPLwm1Dd6cQzFEnL7W7", "19HFfgVmKXp5Y-TVsawRNZJhPdaBvWAVV", "1K3IpP9AfySK4fT_pp70KDrsLZXZ_bNqH", "1s9UTylGhc8jWD5ic-VqWgfftmOdv_WxT", "1LS06_jEUv-Mn0ySzxMrU5UOxlPpOo7pj", "1vhGfYjZkNJWy3CFy4ZwUBNf1Y9n2GqBZ", "1tHVTbJqSyIfVoypUk2hFrHPE-v8RPIy9", "1fOCqEh500NS5GOO61JWmjPMXGKlNvc7_"];
 		var urls = [
@@ -335,53 +298,43 @@
 			["Хэрэв та EUR / USD 1 стандарт лот 1.3400, 3 стандарт лот 1.3200 ханш дээр худалдаж авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3350", "1.3300", "#1.3250", "1.3200"],
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
-		var mainClk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vidPar = Id("vidPar"), vid = Id("vid"), p4 = Id("p4"), p3 = Id("p3"), p2 = Id("p2"), p1 = Id("p1"), num = Id("num"), n1 = Id("n1"), n2 = Id("n2"), n3 = Id("n3"), n4 = Id("n4"), bookPar = Id("bookPar"), book = Id("book"), testPar = Id("testPar"), test = Id("test"), checkPar = Id("checkPar"), grade = Id("grade"), check = Id("check");
+		var clk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vidPar = Id("vidPar"), vid = Id("vid"), bookPar = Id("bookPar"), book = Id("book"), testPar = Id("testPar"), test = Id("test"), checkPar = Id("checkPar"), grade = Id("grade"), check = Id("check");
 		function ShowMain() {
-			mainClk++;
-			if (mainClk == 10)
+			clk++;
+			if (clk == 10)
 				Active(Id("main"), true);
 		}
 		for (var i = 0; i < data.length; i++)
 			lesson.innerHTML += "<option value=" + i + ">" + data[i][0] + "</option>";
 		Change();
 		function Id(eId) { return document.getElementById(eId); }
-		function I(eId) { return parseInt(eId.value); }
 		function Active(eId, active) { eId.style.display = active ? "block" : "none"; }
-		function C(f, d, a, b) { return Math.min(Math.max(I(f) + d, a), b); }
 		function Change() {
 			Active(vidPar, change.value == 0);
 			Active(testPar, change.value == 1);
 			Active(bookPar, change.value >= 2);
 			Lesson();
 		}
-		function Lesson(d = 0) {
-			lesson.value = C(lesson, d, 0, data.length - 1);
+		function Lesson() {
 			if (change.value == 0) {
 				topic.innerHTML = "";
 				for (var i = 1; i < data[lesson.value].length; i++)
 					topic.innerHTML += "<option value=" + i + ">" + data[lesson.value][i] + "</option>";
-				num.value = topic.value = 1;
+				topic.value = 1;
 			} else if (change.value == 1) {
-				if (I(lesson) < 14) {
+				if (lesson.value < 14) {
 					Active(checkPar, true);
 					Test();
 				} else Active(checkPar, false);
 			} else {
-				if (change.value == 2 ? I(lesson) < 14 : true) {
+				if (change.value == 2 ? lesson.value < 14 : true) {
 					Active(book, true);
-					book.src = "https://drive.google.com/file/d/" + books[change.value == 2 ? I(lesson) : 14] + "/preview";
+					book.src = "https://drive.google.com/file/d/" + books[change.value == 2 ? lesson.value : 14] + "/preview";
 				} else Active(book, false);
 			}
 			Topic();
 		}
-		function Topic(d = 0, isSel = false) {
-			num.value = topic.value = C(isSel ? topic : num, d, 1, data[lesson.value].length - 1);
-			vid.src = "https://drive.google.com/file/d/" + urls[lesson.value][I(topic) - 1] + "/preview";
-			p3.disabled = p4.disabled = lesson.value == 0;
-			p1.disabled = p2.disabled = topic.value == 1;
-			n1.disabled = n2.disabled = topic.value == data[lesson.value].length - 1;
-			n3.disabled = n4.disabled = lesson.value == data.length - 1;
-		}
+		function Topic() { vid.src = "https://drive.google.com/file/d/" + urls[lesson.value][topic.value - 1] + "/preview"; }
 		function CheckTest() {
 			var scr = 0;
 			for (var i = 0; i < test.childNodes.length; i++) {
