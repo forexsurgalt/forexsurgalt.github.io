@@ -6,21 +6,17 @@
 	<style>
 		* {
 			font-family: Arial, Helvetica, sans-serif;
+			color: black;
+			font-size: 15px;
 		}
 
 		body {
 			background-color: #222;
-		}
-
-		#vid {
-			background-color: black;
-			border-radius: 10px;
+			display: none;
 		}
 
 		.sel {
 			height: 25px;
-			color: black;
-			font-size: 15px;
 			background-color: white;
 			border: none;
 			border-radius: 5px;
@@ -30,10 +26,8 @@
 
 		.btn {
 			display: inline-block;
-			width: 45px;
+			width: 100px;
 			height: 25px;
-			color: black;
-			font-size: 15px;
 			cursor: pointer;
 			text-align: center;
 			text-decoration: none;
@@ -53,8 +47,10 @@
 			width: 720px;
 		}
 
-		#check {
-			width: 100px;
+		#vid,
+		#test,
+		#book {
+			border-radius: 10px;
 		}
 
 		#testPar {
@@ -62,46 +58,34 @@
 			width: 720px;
 		}
 
-		.txt {
-			color: white;
-			font-size: 15px;
-		}
-
-		#book {
-			border-radius: 10px;
+		#test {
+			padding: 10px;
+			background-color: white;
 		}
 	</style>
 </head>
 
 <body>
-	<div id="main" style="display:none">
-		<center>
-			<select id="lesson" class="sel" onchange="Lesson()"></select>
-			<select id="change" class="sel" onchange="Change()">
-				<option value=0>Бичлэг</option>
-				<option value=1>Шалгалт</option>
-				<option value=2>Ном (Day)</option>
-				<option value=3>Ном</option>
-			</select><br><br>
-			<div id="vidPar">
-				<select id="topic" class="sel" onchange="Topic()"></select><br><br>
-				<iframe id="vid" width="720" height="405" allowfullscreen></iframe>
-			</div>
-			<div id="bookPar"><iframe id="book" src="" width="720" height="920"></iframe></div>
-		</center>
-		<div id="testPar">
-			<div id="checkPar">
-				<div id="test"></div>
-				<center>
-					<label id="grade" class="txt"></label><br><br>
-					<button id="check" class="btn" onclick="CheckTest()">Шалгах</button>
-				</center>
-			</div>
+	<center>
+		<select id="lesson" class="sel" onchange="Lesson()"></select>
+		<select id="change" class="sel" onchange="Change()">
+			<option value=0>Бичлэг</option>
+			<option value=1>Шалгалт</option>
+			<option value=2>Ном (Өдөр)</option>
+			<option value=3>Ном</option>
+		</select><br><br>
+		<div>
+			<select id="topic" class="sel" onchange="Topic()"></select><br><br>
+			<iframe id="vid" width="720" height="450" allowfullscreen></iframe>
 		</div>
+		<div><iframe id="book" src="" width="720" height="920"></iframe></div>
+	</center>
+	<div id="testPar">
+		<div id="test"></div><br>
+		<center><button class="btn" onclick="CheckTest()">Шалгах</button></center>
 	</div>
 	<script>
-		var books = ["1tC7IYdqXFgWxoAngXDveSTBR9PwkqsZO", "1NUX9xB8lp4ak_n-McyUPVbWDsbHaGEgX", "1emJ0eNLTG46_a8tWSvhmqgoZtZo6Ny9W", "1YGnJHQz4sk8m9bBO17DgP37Vi6zB7JeY", "1J0ohh7ghkGTQ06nWWVmktFhHYxl6zSd6", "1ih-8s56uOaH1jIby4Hb1ieWjEdJ_jnlH", "1F0dzC7-eurz5KiDL8JH0VP6tgCOWCM-p", "1yg6s2QvH_hHSwkPLwm1Dd6cQzFEnL7W7", "19HFfgVmKXp5Y-TVsawRNZJhPdaBvWAVV", "1K3IpP9AfySK4fT_pp70KDrsLZXZ_bNqH", "1s9UTylGhc8jWD5ic-VqWgfftmOdv_WxT", "1LS06_jEUv-Mn0ySzxMrU5UOxlPpOo7pj", "1vhGfYjZkNJWy3CFy4ZwUBNf1Y9n2GqBZ", "1tHVTbJqSyIfVoypUk2hFrHPE-v8RPIy9", "1fOCqEh500NS5GOO61JWmjPMXGKlNvc7_"];
-		var urls = [
+		var data = [
 			["12uMuIy_Pk8kTLymkmFwPVE9zDWe9Pfko", "1k8tpMtmlGB2oW7ZQDWBYby6XTQBssR_n", "1MXG5OflhtF7jT-PA4gCBe8UqBnZYuEDr", "1SKoB8bT_KYfod0RsDi3dflnMpnBvfkfA", "1tuwgoAVqg4Luhjymva52DwyZb_2tI28M", "1dYlHT9Xrlirp68mfLVTF1PYo_lJ4zjcD", "1CLGy4uBGqX5P802TxNYYXSQiXIaCJkyW", "1e87_ZZPMq9ciAHHDbEHGyaClfBr_GzWq", "1MK_ICtFArCAGKJ8wQ-fBFV7RvVO5syVN", "1DbWuuVJXo1JJEwWF8KAh-P_Z2unCkdFu", "1c0ExqNI0PUrFERYJHnrWGgpFkYx7qdI2", "1SN8j6uSqyhtDlI1WNkxybD0QBHg02uUi"],
 			["1hx-HvKWRZ0byrP_npxg0uOBaFsGMCU0T", "1D-HCn-KiaDHxsJFTdzCebg_3-n2g8rhq", "1ttF4tzvRB0vazOJqeC-Ea5scaD73X2j-", "1zQwuXD2Z1xI8hZ2KF4DK0COiwU--wGsj", "1h2xz_EnA2CtkHqF7v_2_JauASMaRz0WK", "1L6gLTb8122xG2h3JfkH72_Df5USxsW66"],
 			["18tilmw7rPh0grmfoeWQbzOOsQrCFo22j", "1gU0bp1kbZzz9ZV4YtqimJ8FoZROPU6IS", "1O1La1iJZRwmDov43AFJzLalXnrm-GDjL", "1av3Cv0HDSOvUG-0B6es-b5tjn8rSQta0", "1qEOEuOVIX5K6q8OVS0lIEoq8fcalWCgx"],
@@ -121,29 +105,30 @@
 			["10MzlEr7vgH1gYFsLeHM4l1qonhwTgN8U"],
 			["1aJfrpvkeBbhHG30_XUl80hRW-w49gdMX"],
 			["1BuclRgkDKd_OYALyWETL-0FX6WVMlVSd"],
+			["1tC7IYdqXFgWxoAngXDveSTBR9PwkqsZO", "1NUX9xB8lp4ak_n-McyUPVbWDsbHaGEgX", "1emJ0eNLTG46_a8tWSvhmqgoZtZo6Ny9W", "1YGnJHQz4sk8m9bBO17DgP37Vi6zB7JeY", "1J0ohh7ghkGTQ06nWWVmktFhHYxl6zSd6", "1ih-8s56uOaH1jIby4Hb1ieWjEdJ_jnlH", "1F0dzC7-eurz5KiDL8JH0VP6tgCOWCM-p", "1yg6s2QvH_hHSwkPLwm1Dd6cQzFEnL7W7", "19HFfgVmKXp5Y-TVsawRNZJhPdaBvWAVV", "1K3IpP9AfySK4fT_pp70KDrsLZXZ_bNqH", "1s9UTylGhc8jWD5ic-VqWgfftmOdv_WxT", "1LS06_jEUv-Mn0ySzxMrU5UOxlPpOo7pj", "1vhGfYjZkNJWy3CFy4ZwUBNf1Y9n2GqBZ", "1tHVTbJqSyIfVoypUk2hFrHPE-v8RPIy9", "1fOCqEh500NS5GOO61JWmjPMXGKlNvc7_"],
 		];
-		var data = [
-			["Day 1", "1. Форекс гэж юу вэ?", "2. Форекс заx зээлд юуг арилждаг вэ?", "3. Форекс заx зээлийн тогтолцоо", "4. Валютын xослолууд гэж юу вэ?", "5. Xаншийн мэдээллийг яаж уншиx ёстой вэ?", "6. Форексын чуxал нэршлүүд", "7. Leverage буюу xөшүүрэг гэж юу вэ?", "8. Арилжаанд ороx болон гараx заxиалгын төрлүүд", "9. Форекс заx зээлийн давуу талууд", "10. Эxлээд Demo - н Тербумтан бол!", "11. Xөрөнгийн заx зээлийн арилжаанд оролцоx нь xурдан баяжиx арга ерөөс биш", "12. Маржин гэж юу вэ?"],
-			["Day 2", "1. Форекс зах зээлийн дүн шинжилгээ", "2. Форексын гурван төрлийн график болон тэдгээрийг ойлгох нь", "3. Support & Resistance", "4. TrendLines", "5. Channels", "6. Support & Resistance ашиглан арилжаанд орох нь"],
-			["Day 3", "1. Japanese Candlestick", "2. Candlestick Patterns: Spinning Tops, Marubozu, Doji", "3. Hammer, Hanging Man, Inverted Hammer, Shooting Star", "4. Engulfing Candles, Tweezer Candles, Morning Star, Evening Star", "5. Three White Soldiers, Three Black Crows, Three Inside Up/down, Candlestick + Support & Resistance"],
-			["Day 4", "1. Moving Averages", "2. Moving Average - ыг ашиглах нь Hammer, Hanging Man, Inverted Hammer, Shooting Star", "3. Indicators, Bolling Bands, MACD", "4. Stochastics, Parabolic Sar, RSI"],
-			["Day 5", "1. Fibonacci Retracement", "2. Fibonacci + Support & Resistance", "3. Fibonacci Stop Loss & Extensions"],
-			["Day 6", "1. Reversal Patterns", "2. Continuation Patterns", "3. Triangle Patterns"],
-			["Day 7", "1. Elliot Wave Theory", "2. Divergence"],
-			["Day 8", "1. Pivot Points"],
-			["Day 9", "1. Market Environment", "2. Breakouts"],
-			["Day 10", "1. Multi-Time Frame Analysis", "2. Fundamental Analysis"],
-			["Day 11", "1. News", "2. Үнэт цааснуудын хоорондын хамаарал"],
-			["Day 12", "1. Ямар төрлийн арилжаач вэ?", "2. Trading Systems", "3. Risk Management"],
-			["Day 13", "1. Leverage"],
-			["Day 14", "1. Day 14"],
+		var titles = [
+			["Өдөр 1", "1. Форекс гэж юу вэ?", "2. Форекс заx зээлд юуг арилждаг вэ?", "3. Форекс заx зээлийн тогтолцоо", "4. Валютын xослолууд гэж юу вэ?", "5. Xаншийн мэдээллийг яаж уншиx ёстой вэ?", "6. Форексын чуxал нэршлүүд", "7. Leverage буюу xөшүүрэг гэж юу вэ?", "8. Арилжаанд ороx болон гараx заxиалгын төрлүүд", "9. Форекс заx зээлийн давуу талууд", "10. Эxлээд Demo - н Тербумтан бол!", "11. Xөрөнгийн заx зээлийн арилжаанд оролцоx нь xурдан баяжиx арга ерөөс биш", "12. Маржин гэж юу вэ?"],
+			["Өдөр 2", "1. Форекс зах зээлийн дүн шинжилгээ", "2. Форексын гурван төрлийн график болон тэдгээрийг ойлгох нь", "3. Support & Resistance", "4. TrendLines", "5. Channels", "6. Support & Resistance ашиглан арилжаанд орох нь"],
+			["Өдөр 3", "1. Japanese Candlestick", "2. Candlestick Patterns: Spinning Tops, Marubozu, Doji", "3. Hammer, Hanging Man, Inverted Hammer, Shooting Star", "4. Engulfing Candles, Tweezer Candles, Morning Star, Evening Star", "5. Three White Soldiers, Three Black Crows, Three Inside Up/down, Candlestick + Support & Resistance"],
+			["Өдөр 4", "1. Moving Averages", "2. Moving Average - ыг ашиглах нь Hammer, Hanging Man, Inverted Hammer, Shooting Star", "3. Indicators, Bolling Bands, MACD", "4. Stochastics, Parabolic Sar, RSI"],
+			["Өдөр 5", "1. Fibonacci Retracement", "2. Fibonacci + Support & Resistance", "3. Fibonacci Stop Loss & Extensions"],
+			["Өдөр 6", "1. Reversal Patterns", "2. Continuation Patterns", "3. Triangle Patterns"],
+			["Өдөр 7", "1. Elliot Wave Theory", "2. Divergence"],
+			["Өдөр 8", "1. Pivot Points"],
+			["Өдөр 9", "1. Market Environment", "2. Breakouts"],
+			["Өдөр 10", "1. Multi-Time Frame Analysis", "2. Fundamental Analysis"],
+			["Өдөр 11", "1. News", "2. Үнэт цааснуудын хоорондын хамаарал"],
+			["Өдөр 12", "1. Ямар төрлийн арилжаач вэ?", "2. Trading Systems", "3. Risk Management"],
+			["Өдөр 13", "1. Leverage"],
+			["Өдөр 14", "1. Өдөр 14"],
 			["Бонус Хичээл: IX сарын Live Room", "2020/09/15 Live Trading Room", "2020/09/17 Live Trading Room", "2020/09/18 Live Trading Room", "2020/09/21 Live Trading Room", "2020/09/24 Live Trading Room", "2020/09/28 Live Trading Room", "2020/09/29 Live Trading Room", "2020/10/01 Live Trading Room", "2020/10/05 Live Trading Room", "2020/10/06 Live Trading Room", "2020/10/07 Live Trading Room", "2020/10/13 Live Trading Room", "2020/10/16 Live Trading Room", "2020/10/19 Live Trading Room"],
 			["Бонус Хичээл: XI сарын Live Room", "2020/11/23 Live Trading Room", "2020/11/24 Live Trading Room", "2020/11/28 Live Trading Room", "2020/12/01 Live Trading Room", "2020/12/02 Live Trading Room", "2020/12/04 Live Trading Room", "2020/12/07 Live Trading Room", "2020/12/09 Live Trading Room", "2020/12/14 Live Trading Room", "2020/12/15 Live Trading Room", "2020/12/16 Live Trading Room", "2020/12/21 Live Trading Room", "2020/12/22 Live Trading Room"],
 			["Market Structure", "Зах зээлийн хэв шинж"],
 			["Support & Resistance 2.0", "Support & Resistance 2.0"],
 			["Price Action", "Price Action"]
 		];
-		var quizs = [[
+		var tests = [[
 			["Форекс гэж юу вэ?", "Нэг валютыг нөгөө валютаар худалдаж авах эсвэл зарах", "Хос валютын арилжаалагддаг газар", "Үнэт металл, алт, газрын тос, индекс арилжаалагддаг газар", "#Дээрх бүгд"],
 			["АНУ-ын хувьд NYSE буюу Нью Йоркийн хөрөнгийн бирж нь ТӨВ арилжааны байгууллага бол Форекс зах зээлд ТӨВ байгууллага гэж байдаг уу?", "#Байхгүй", "Байгаа"],
 			["USD/MNT аль нь Quote Currency вэ?", "#MNT", "USD"],
@@ -298,78 +283,80 @@
 			["Хэрэв та EUR / USD 1 стандарт лот 1.3400, 3 стандарт лот 1.3200 ханш дээр худалдаж авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3350", "1.3300", "#1.3250", "1.3200"],
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
-		var clk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vidPar = Id("vidPar"), vid = Id("vid"), bookPar = Id("bookPar"), book = Id("book"), testPar = Id("testPar"), test = Id("test"), checkPar = Id("checkPar"), grade = Id("grade"), check = Id("check");
+		var clk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vid = Id("vid"), book = Id("book"), test = Id("test");
 		function ShowMain() {
 			clk++;
-			if (clk == 10)
-				Active(Id("main"), true);
+			if (clk == 5)
+				Active(document.body, true);
 		}
-		for (var i = 0; i < data.length; i++)
-			lesson.innerHTML += "<option value=" + i + ">" + data[i][0] + "</option>";
+		for (var i = 0; i < titles.length; i++)
+			lesson.innerHTML += "<option value=" + i + ">" + titles[i][0] + "</option>";
 		Change();
 		function Id(eId) { return document.getElementById(eId); }
 		function Active(eId, active) { eId.style.display = active ? "block" : "none"; }
 		function Change() {
-			Active(vidPar, change.value == 0);
-			Active(testPar, change.value == 1);
-			Active(bookPar, change.value >= 2);
+			Active(vid.parentNode, change.value == 0);
+			Active(test.parentNode, change.value == 1);
+			Active(book.parentNode, change.value >= 2);
 			Lesson();
 		}
 		function Lesson() {
 			if (change.value == 0) {
 				topic.innerHTML = "";
-				for (var i = 1; i < data[lesson.value].length; i++)
-					topic.innerHTML += "<option value=" + i + ">" + data[lesson.value][i] + "</option>";
+				for (var i = 1; i < titles[lesson.value].length; i++)
+					topic.innerHTML += "<option value=" + i + ">" + titles[lesson.value][i] + "</option>";
 				topic.value = 1;
 			} else if (change.value == 1) {
 				if (lesson.value < 14) {
-					Active(checkPar, true);
+					Active(test.parentNode, true);
 					Test();
-				} else Active(checkPar, false);
+				} else Active(test.parentNode, false);
 			} else {
 				if (change.value == 2 ? lesson.value < 14 : true) {
 					Active(book, true);
-					book.src = "https://drive.google.com/file/d/" + books[change.value == 2 ? lesson.value : 14] + "/preview";
+					book.src = "https://drive.google.com/file/d/" + data[19][change.value == 2 ? lesson.value : 14] + "/preview";
 				} else Active(book, false);
 			}
 			Topic();
 		}
-		function Topic() { vid.src = "https://drive.google.com/file/d/" + urls[lesson.value][topic.value - 1] + "/preview"; }
+		function Topic() { vid.src = "https://drive.google.com/file/d/" + data[lesson.value][topic.value - 1] + "/preview"; }
 		function CheckTest() {
-			var scr = 0;
-			for (var i = 0; i < test.childNodes.length; i++) {
-				var childs = test.childNodes[i].childNodes, inp = 0, chkT = 0, chk = 0, t = 0;
-				for (var j = 1; j < childs.length; j++)
-					if (childs[j].nodeName == "INPUT") {
-						inp++;
-						if (childs[j].checked)
-							chk++;
-						if (childs[j].value == "true") {
-							childs[j + 1].style = "background-color: green;";
-							t++;
+			var scr = 0, form = 0;
+			for (var i = 0; i < test.childNodes.length; i++)
+				if (test.childNodes[i].nodeName == "FORM") {
+					var childs = test.childNodes[i].childNodes, inp = 0, cbT = 0, cb = 0, t = 0;
+					for (var j = 1; j < childs.length; j++)
+						if (childs[j].nodeName == "INPUT") {
+							inp++;
 							if (childs[j].checked)
-								chkT++;
-						} else if (childs[j].checked)
-							childs[j + 1].style = "background-color: red;";
-					}
-				childs[0].style = "background-color: " + (chkT == t && chk == chkT ? "green" : "red") + ";";
-				scr += chk <= t ? chkT / t : 0;
-			}
-			grade.innerHTML = "Оноо: " + scr + " / " + test.childNodes.length + ", Хувь: " + (scr / test.childNodes.length * 100).toFixed(2) + "%";
+								cb++;
+							if (childs[j].value == "true") {
+								childs[j + 1].style = "color: green; font-weight: bold;";
+								t++;
+								if (childs[j].checked)
+									cbT++;
+							} else if (childs[j].checked)
+								childs[j + 1].style = "color: red; font-weight: bold;";
+						}
+					childs[0].style = "color: " + (cbT == t && cb == cbT ? "green" : "red") + "; font-weight: bold;";
+					scr += cb <= t ? cbT / t : 0;
+					form++;
+				}
+			test.lastChild.firstChild.innerHTML = "Оноо: " + scr + " / " + form + ", Хувь: " + (scr / form * 100).toFixed(2) + "%";
 		}
 		function Test() {
-			var data = quizs[lesson.value];
-			data.sort(() => .5 - Math.random());
+			var questions = tests[lesson.value];
+			questions.sort(() => .5 - Math.random());
 			test.innerHTML = "";
-			for (var i = 0; i < data.length; i++) {
-				var res = "<label class='txt'>" + (i + 1) + ". " + data[i][0] + "</label><br>", arr = data[i].slice(1), n = 0;
+			for (var i = 0; i < questions.length; i++) {
+				var res = "<label>" + (i + 1) + ". " + questions[i][0] + "</label><br>", arr = questions[i].slice(1), n = 0;
 				arr.sort(() => .5 - Math.random());
 				for (var j = 0; j < arr.length; n += arr[j++][0] == '#' ? 1 : 0);
 				for (var j = 0; j < arr.length; j++)
-					res += (n == 1 ? "<input type='radio' name='0' value='" + (arr[j][0] == '#') + "'>" : "<input type='checkbox' value='" + (arr[j][0] == '#') + "'>") + "<label class='txt'>" + (arr[j][0] == '#' ? arr[j].substring(1) : arr[j]) + "</label><br>";
-				test.innerHTML += "<form>" + res + "<br></form>";
+					res += (n == 1 ? "<input type='radio' name='0' value='" + (arr[j][0] == '#') + "'>" : "<input type='checkbox' value='" + (arr[j][0] == '#') + "'>") + "<label>" + (arr[j][0] == '#' ? arr[j].substring(1) : arr[j]) + "</label><br>";
+				test.innerHTML += "<form>" + res + "</form><br>";
 			}
-			grade.innerHTML = "";
+			test.innerHTML += "<center><label>Оноо</label></center>"
 		}
 	</script>
 </body>
