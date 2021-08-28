@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html onclick="ShowMain()">
+<html onclick="ShowBody()">
 
 <head>
 	<title>ФОРЕКС</title>
@@ -284,9 +284,9 @@
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
 		var clk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vid = Id("vid"), book = Id("book"), test = Id("test");
-		function ShowMain() {
+		function ShowBody() {
 			clk++;
-			if (clk == 5)
+			if (clk == 10)
 				Active(document.body, true);
 		}
 		for (var i = 0; i < titles.length; i++)
