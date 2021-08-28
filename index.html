@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html onclick="ShowBody()">
+<html onclick="ShowMain()">
 
 <head>
 	<title>ФОРЕКС</title>
@@ -12,6 +12,9 @@
 
 		body {
 			background-color: #222;
+		}
+
+		#main {
 			display: none;
 		}
 
@@ -66,23 +69,25 @@
 </head>
 
 <body>
-	<center>
-		<select id="lesson" class="sel" onchange="Lesson()"></select>
-		<select id="change" class="sel" onchange="Change()">
-			<option value=0>Бичлэг</option>
-			<option value=1>Шалгалт</option>
-			<option value=2>Ном (Өдөр)</option>
-			<option value=3>Ном</option>
-		</select><br><br>
-		<div>
-			<select id="topic" class="sel" onchange="Topic()"></select><br><br>
-			<iframe id="vid" width="720" height="450" allowfullscreen></iframe>
+	<div id="main">
+		<center>
+			<select id="lesson" class="sel" onchange="Lesson()"></select>
+			<select id="change" class="sel" onchange="Change()">
+				<option value=0>Бичлэг</option>
+				<option value=1>Шалгалт</option>
+				<option value=2>Ном (Өдөр)</option>
+				<option value=3>Ном</option>
+			</select><br><br>
+			<div>
+				<select id="topic" class="sel" onchange="Topic()"></select><br><br>
+				<iframe id="vid" width="720" height="450" allowfullscreen></iframe>
+			</div>
+			<div><iframe id="book" src="" width="720" height="920"></iframe></div>
+		</center>
+		<div id="testPar">
+			<div id="test"></div><br>
+			<center><button class="btn" onclick="CheckTest()">Шалгах</button></center>
 		</div>
-		<div><iframe id="book" src="" width="720" height="920"></iframe></div>
-	</center>
-	<div id="testPar">
-		<div id="test"></div><br>
-		<center><button class="btn" onclick="CheckTest()">Шалгах</button></center>
 	</div>
 	<script>
 		var data = [
@@ -284,10 +289,10 @@
 			["Дахиад нэг жишээ авъя. Хэрэв та EUR/USD 0.10 лот-оор 1.3200, 1.3300, 1.3350 ханш дээр худалдан авбал, таны арилжаанд орсон дундаж ханшийн үнэ хэд вэ?", "1.3150", "1.3252", "#1.3283", "1.3285"],
 		]];
 		var clk = 0, lesson = Id("lesson"), change = Id("change"), topic = Id("topic"), vid = Id("vid"), book = Id("book"), test = Id("test");
-		function ShowBody() {
+		function ShowMain() {
 			clk++;
 			if (clk == 10)
-				Active(document.body, true);
+				Active(Id("main"), true);
 		}
 		for (var i = 0; i < titles.length; i++)
 			lesson.innerHTML += "<option value=" + i + ">" + titles[i][0] + "</option>";
